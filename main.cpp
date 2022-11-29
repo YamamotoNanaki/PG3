@@ -25,11 +25,20 @@ int OperationList(List<string>& list)
 
 bool DisplayAll(List<string>& list)
 {
-	cout << "—v‘fˆê—— " << endl;
-	list.Print();
-	cout << endl;
-	cout << list.Size() << endl;
-	cout << endl;
+	cout << "—v‘fˆê—— :" << endl << "{" << endl;
+	for (int i = 0; i < list.Size(); i++)
+	{
+		cout << "  " << i << " : " << "\"" << list[i] << "\"";
+		if (i == list.Size() - 1)
+		{
+			cout << endl << "}" << endl << endl;
+		}
+		else
+		{
+			cout << "," << endl;
+		}
+	}
+	cout << "—v‘f” : " << list.Size() << endl << endl;
 	cout << "---------------------------" << endl;
 	int n;
 	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
@@ -47,11 +56,9 @@ bool DisplayNum(List<string>& list)
 	int n;
 	cin >> n;
 	cout << endl;
-	cout << n << "”Ô–Ú‚Ì—v‘f‚Í" << list[n] << "‚Å‚·" << endl;
-	cout << endl;
+	cout << n << "”Ô–Ú‚Ì—v‘f‚Í" << list[n] << "‚Å‚·" << endl << endl;
 	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
-	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl;
-	cout << endl;
+	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl << endl;
 	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> n;
 	cout << endl;
@@ -65,8 +72,7 @@ void DisplayList(List<string>& list)
 		int n;
 		cout << "1.—v‘f‚Ìˆê——•\Ž¦ " << endl;
 		cout << "2.‡”Ô‚ðŽw’è‚µ‚Ä—v‘f‚ð•\Ž¦ " << endl;
-		cout << "9.—v‘f‘€ì‚É–ß‚é " << endl;
-		cout << endl;
+		cout << "9.—v‘f‘€ì‚É–ß‚é " << endl << endl;
 		cout << "---------------------------" << endl;
 		cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 		cin >> n;
