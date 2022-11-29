@@ -1,83 +1,175 @@
-#include <list>
-#include <vector>
-#include <iostream>
+#include "IFList.h"
+#include <functional>
+#include <string>
 
-void Print(std::list<std::vector<char>> list)
-{
-	for (auto itr = list.begin(); itr != list.end(); itr++)
-	{
-		for (auto itr2 = itr->begin(); itr2 != itr->end(); itr2++)
-		{
-			std::cout << *itr2;
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
-}
-
-std::vector<char> VectorPushBackChar(const char* str) {
-	std::vector<char> anser;
-	for (int i = 0; str[i] != '\0'; i++) {
-		anser.push_back(str[i]);
-	};
-
-	return anser;
-}
-
+using namespace IF;
 using namespace std;
 
-void main()
+int OperationList(List<string>& list)
 {
-	list<vector<char>>stations;
-	stations.push_back(VectorPushBackChar("Tokyo"));
-	stations.push_back(VectorPushBackChar("Kanda"));
-	stations.push_back(VectorPushBackChar("Akihabara"));
-	stations.push_back(VectorPushBackChar("Okachimachi"));
-	stations.push_back(VectorPushBackChar("Ueno"));
-	stations.push_back(VectorPushBackChar("Uguisudani"));
-	stations.push_back(VectorPushBackChar("Nippori"));
-	stations.push_back(VectorPushBackChar("Tabata"));
-	stations.push_back(VectorPushBackChar("Komagome"));
-	stations.push_back(VectorPushBackChar("Sugamo"));
-	stations.push_back(VectorPushBackChar("Otsuka"));
-	stations.push_back(VectorPushBackChar("Ikebukuro"));
-	stations.push_back(VectorPushBackChar("Mejiro"));
-	stations.push_back(VectorPushBackChar("Takadanobaba"));
-	stations.push_back(VectorPushBackChar("Shin-Okubo"));
-	stations.push_back(VectorPushBackChar("Shinjuku"));
-	stations.push_back(VectorPushBackChar("Yoyogi"));
-	stations.push_back(VectorPushBackChar("Harajuku"));
-	stations.push_back(VectorPushBackChar("Shibuya"));
-	stations.push_back(VectorPushBackChar("Ebisu"));
-	stations.push_back(VectorPushBackChar("Meguro"));
-	stations.push_back(VectorPushBackChar("Gotanda"));
-	stations.push_back(VectorPushBackChar("Osaki"));
-	stations.push_back(VectorPushBackChar("Shinagawa"));
-	stations.push_back(VectorPushBackChar("Tamachi"));
-	stations.push_back(VectorPushBackChar("Hamamatsucho"));
-	stations.push_back(VectorPushBackChar("Shimbashi"));
-	stations.push_back(VectorPushBackChar("Yurakucho"));
-
-	cout << "1970" << endl;
+	int n;
+	cout << "0.—v‘f‚Ì•\Ž¦ " << endl;
+	cout << "1.—v‘f‚Ì‘}“ü " << endl;
+	if (!list.Empty())
+	{
+		cout << "2.—v‘f‚Ì•ÒW " << endl;
+		cout << "3.—v‘f‚Ìíœ " << endl;
+	}
 	cout << endl;
-
-	Print(stations);
-
-	auto itr = stations.begin();
-	while (VectorPushBackChar("Tabata") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Nishi-Nippori"));
-
-	cout << "1971" << endl;
+	cout << "---------------------------" << endl;
+	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+	cin >> n;
 	cout << endl;
+	return n;
+}
 
-	Print(stations);
-
-	itr = stations.begin();
-	while (VectorPushBackChar("Tamachi") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Takanawa Gateway"));
-
-	cout << "2020" << endl;
+bool DisplayAll(List<string>& list)
+{
+	cout << "—v‘fˆê—— " << endl;
+	list.Print();
 	cout << endl;
+	cout << list.Size() << endl;
+	cout << endl;
+	cout << "---------------------------" << endl;
+	int n;
+	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
+	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl;
+	cout << endl;
+	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+	cin >> n;
+	cout << endl;
+	return n;
+}
 
-	Print(stations);
+bool DisplayNum(List<string>& list)
+{
+	cout << "•\Ž¦‚µ‚½‚¢—v‘f‚Ì‡”Ô‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+	int n;
+	cin >> n;
+	cout << endl;
+	cout << n << "”Ô–Ú‚Ì—v‘f‚Í" << list[n] << "‚Å‚·" << endl;
+	cout << endl;
+	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
+	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl;
+	cout << endl;
+	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+	cin >> n;
+	cout << endl;
+	return n;
+}
+
+void DisplayList(List<string>& list)
+{
+	while (true)
+	{
+		int n;
+		cout << "1.—v‘f‚Ìˆê——•\Ž¦ " << endl;
+		cout << "2.‡”Ô‚ðŽw’è‚µ‚Ä—v‘f‚ð•\Ž¦ " << endl;
+		cout << "9.—v‘f‘€ì‚É–ß‚é " << endl;
+		cout << endl;
+		cout << "---------------------------" << endl;
+		cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+		cin >> n;
+		cout << endl;
+		if (n == 1)
+		{
+			bool a = DisplayAll(list);
+			if (a)return;
+		}
+		else if (n == 2)
+		{
+			bool a = DisplayNum(list);
+			if (a)return;
+		}
+		else return;
+	}
+}
+
+void InsertList(List<string>& list)
+{
+	string str;
+	int i;
+	cout << "—v‘f‚ð’Ç‰Á‚·‚éêŠ‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢BÅŒã”ö‚É’Ç‰Á‚·‚éê‡‚Í-1‚ðAæ“ª‚É’Ç‰Á‚·‚éê‡‚Í-2‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+	cin >> i;
+	cout << endl;
+	if (i > list.Size() && !(i == -1 || i == -2))
+	{
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
+		cout << endl;
+		return;
+	}
+	cout << endl;
+	cout << "’Ç‰Á‚·‚é—v‘f‚Ì’l‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+	cin >> str;
+	cout << endl;
+	if (i == -1)
+	{
+		list.PushBack(str);
+		cout << "—v‘f" << list[list.Size() - 1] << "‚ª" << "ÅŒã”ö‚É’Ç‰Á‚³‚ê‚Ü‚µ‚½ " << endl;
+	}
+	else if (i == -2)
+	{
+		list.PushFront(str);
+		cout << "—v‘f" << list[0] << "‚ª" << "æ“ª‚É’Ç‰Á‚³‚ê‚Ü‚µ‚½ " << endl;
+	}
+	else
+	{
+		list.Insert(str, i);
+		cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
+	}
+	cout << endl;
+}
+
+void DeleteList(List<string>& list)
+{
+	int i;
+	cout << "íœ‚µ‚½‚¢—v‘f‚Ì”Ô†‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+	cin >> i;
+	cout << endl;
+	if (i > list.Size())
+	{
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
+	}
+	else
+	{
+		cout << i << "”Ô–Ú‚Ì—v‘f" << list.Erase(i) << "‚ðíœ‚µ‚Ü‚µ‚½ " << endl;
+	}
+	cout << endl;
+}
+
+void EditList(List<string>& list)
+{
+	int i;
+	cout << "•ÒW‚µ‚½‚¢—v‘f‚Ì”Ô†‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+	cin >> i;
+	if (i < list.Size())
+	{
+		string str;
+		cout << i << "”Ô–Ú‚Ì—v‘f‚Ì•ÏX‚·‚é’l‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
+		cin >> str;
+		cout << endl;
+		list[i] = str;
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ª" << list[i] << "‚É•ÏX‚³‚ê‚Ü‚µ‚½" << endl;
+	}
+	else
+	{
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
+	}
+	cout << endl;
+}
+
+int main()
+{
+	int n;
+	List<string> list;
+	std::function<void(List<string>&)>f[4] = { DisplayList,InsertList,EditList,DeleteList };
+
+	while (true)
+	{
+		n = OperationList(list);
+		f[n](list);
+	}
+
+	system("pause");
+	return 0;
 }
