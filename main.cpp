@@ -8,19 +8,19 @@ using namespace std;
 int OperationList(List<string>& list)
 {
 	int n;
-	cout << "0.—v‘f‚Ì•\Ž¦ " << endl;
-	cout << "1.—v‘f‚Ì‘}“ü " << endl;
+	cout << "1.—v‘f‚Ì•\Ž¦ " << endl;
+	cout << "2.—v‘f‚Ì‘}“ü " << endl;
 	if (!list.Empty())
 	{
-		cout << "2.—v‘f‚Ì•ÒW " << endl;
-		cout << "3.—v‘f‚Ìíœ " << endl;
+		cout << "3.—v‘f‚Ì•ÒW " << endl;
+		cout << "4.—v‘f‚Ìíœ " << endl;
 	}
 	cout << endl;
 	cout << "---------------------------" << endl;
 	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> n;
 	cout << endl;
-	return n;
+	return n - 1;
 }
 
 bool DisplayAll(List<string>& list)
@@ -41,13 +41,13 @@ bool DisplayAll(List<string>& list)
 	cout << "—v‘f” : " << list.Size() << endl << endl;
 	cout << "---------------------------" << endl;
 	int n;
-	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
-	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl;
+	cout << "1.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
+	cout << "2.—v‘f‚Ì‘€ì‚É–ß‚é " << endl;
 	cout << endl;
 	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> n;
 	cout << endl;
-	return n;
+	return n - 1;
 }
 
 bool DisplayNum(List<string>& list)
@@ -56,13 +56,13 @@ bool DisplayNum(List<string>& list)
 	int n;
 	cin >> n;
 	cout << endl;
-	cout << n << "”Ô–Ú‚Ì—v‘f‚Í" << list[n] << "‚Å‚·" << endl << endl;
-	cout << "0.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
-	cout << "1.—v‘f‚Ì‘€ì‚É–ß‚é " << endl << endl;
+	cout << n << " : " << list[n] << endl << endl;
+	cout << "1.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
+	cout << "2.—v‘f‚Ì‘€ì‚É–ß‚é " << endl << endl;
 	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> n;
 	cout << endl;
-	return n;
+	return n - 1;
 }
 
 void DisplayList(List<string>& list)
@@ -93,36 +93,38 @@ void DisplayList(List<string>& list)
 
 void InsertList(List<string>& list)
 {
+	string instr;
+	cout << "—v‘f‚ð’Ç‰Á‚·‚éêŠ‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢BÅŒã”ö‚É’Ç‰Á‚·‚éê‡‚Í‰½‚à“ü—Í‚µ‚È‚¢‚Å‚­‚¾‚³‚¢ " << endl;
 	string str;
-	int i;
-	cout << "—v‘f‚ð’Ç‰Á‚·‚éêŠ‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢BÅŒã”ö‚É’Ç‰Á‚·‚éê‡‚Í-1‚ðAæ“ª‚É’Ç‰Á‚·‚éê‡‚Í-2‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
-	cin >> i;
-	cout << endl;
-	if (i > list.Size() && !(i == -1 || i == -2))
+	if (cin.fail())
 	{
-		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
-		cout << endl;
-		return;
+		cin.clear();
 	}
+	cin.ignore(1024, '\n');
+	getline(cin, instr);
+	cout << endl;
 	cout << endl;
 	cout << "’Ç‰Á‚·‚é—v‘f‚Ì’l‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
 	cin >> str;
 	cout << endl;
-	if (i == -1)
+	if (instr == "\0")
 	{
 		list.PushBack(str);
-		cout << "—v‘f" << list[list.Size() - 1] << "‚ª" << "ÅŒã”ö‚É’Ç‰Á‚³‚ê‚Ü‚µ‚½ " << endl;
+		int i = list.Size() - 1;
+		cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
+		return;
 	}
-	else if (i == -2)
+	int i = std::stoi(instr);
+	if (i > list.Size())
 	{
-		list.PushFront(str);
-		cout << "—v‘f" << list[0] << "‚ª" << "æ“ª‚É’Ç‰Á‚³‚ê‚Ü‚µ‚½ " << endl;
+		list.PushBack(str);
+		i = list.Size() - 1;
 	}
 	else
 	{
 		list.Insert(str, i);
-		cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
 	}
+	cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
 	cout << endl;
 }
 
