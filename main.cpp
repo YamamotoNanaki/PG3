@@ -38,6 +38,10 @@ bool DisplayAll(List<string>& list)
 			cout << "," << endl;
 		}
 	}
+	if (list.Size() == 0)
+	{
+		cout << endl << "}" << endl << endl;
+	}
 	cout << "—v‘f” : " << list.Size() << endl << endl;
 	cout << "---------------------------" << endl;
 	int n;
@@ -77,6 +81,7 @@ void DisplayList(List<string>& list)
 		cout << "‘€ì‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 		cin >> n;
 		cout << endl;
+		system("cls");
 		if (n == 1)
 		{
 			bool a = DisplayAll(list);
@@ -88,6 +93,7 @@ void DisplayList(List<string>& list)
 			if (a)return;
 		}
 		else return;
+		system("cls");
 	}
 }
 
@@ -111,7 +117,11 @@ void InsertList(List<string>& list)
 	{
 		list.PushBack(str);
 		int i = list.Size() - 1;
-		cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
+		cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl << endl;
+		cout << endl << "9.—v‘f‘€ì‚É–ß‚é " << endl << endl;
+		cout << "---------------------------" << endl;
+		cout << "‘€ì‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+		cin >> i;
 		return;
 	}
 	int i = std::stoi(instr);
@@ -124,7 +134,12 @@ void InsertList(List<string>& list)
 	{
 		list.Insert(str, i);
 	}
-	cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl;
+	cout << "—v‘f" << list[i] << "‚ª" << i << "”Ô–Ú‚É‘}“ü‚³‚ê‚Ü‚µ‚½ " << endl << endl;
+	cout << endl << "9.—v‘f‘€ì‚É–ß‚é " << endl << endl;
+	cout << "---------------------------" << endl;
+	cout << "‘€ì‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << endl;
+	cin >> i;
+	return;
 	cout << endl;
 }
 
@@ -140,8 +155,11 @@ void DeleteList(List<string>& list)
 	}
 	else
 	{
-		cout << i << "”Ô–Ú‚Ì—v‘f" << list.Erase(i) << "‚ğíœ‚µ‚Ü‚µ‚½ " << endl;
+		cout << i << "”Ô–Ú‚Ì—v‘f" << list.Erase(i) << "‚ğíœ‚µ‚Ü‚µ‚½ " << endl << endl;
 	}
+	cout << endl << "9.—v‘f‘€ì‚É–ß‚é " << endl << endl;
+	cout << "---------------------------" << endl;
+	cout << "‘€ì‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cout << endl;
 }
 
@@ -157,12 +175,15 @@ void EditList(List<string>& list)
 		cin >> str;
 		cout << endl;
 		list[i] = str;
-		cout << i << "”Ô–Ú‚Ì—v‘f‚ª" << list[i] << "‚É•ÏX‚³‚ê‚Ü‚µ‚½" << endl;
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ª" << list[i] << "‚É•ÏX‚³‚ê‚Ü‚µ‚½" << endl << endl;
 	}
 	else
 	{
-		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
+		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl << endl;
 	}
+	cout << endl << "9.—v‘f‘€ì‚É–ß‚é " << endl << endl;
+	cout << "---------------------------" << endl;
+	cout << "‘€ì‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cout << endl;
 }
 
@@ -175,7 +196,9 @@ int main()
 	while (true)
 	{
 		n = OperationList(list);
+		system("cls");
 		f[n](list);
+		system("cls");
 	}
 
 	system("pause");

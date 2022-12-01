@@ -5,7 +5,7 @@
 
 namespace IF
 {
-	template <typename T>
+	template <class T>
 	struct Node
 	{
 		T value;
@@ -23,7 +23,7 @@ namespace IF
 			this->next = next;
 		}
 	};
-	template <typename T>
+	template <class T>
 	class List
 	{
 	private:
