@@ -38,6 +38,10 @@ bool DisplayAll(List<string>& list)
 			cout << "," << endl;
 		}
 	}
+	if (list.Size() == 0)
+	{
+		cout << endl << "}" << endl << endl;
+	}
 	cout << "—v‘f” : " << list.Size() << endl << endl;
 	cout << "---------------------------" << endl;
 	int n;
@@ -56,7 +60,14 @@ bool DisplayNum(List<string>& list)
 	int n;
 	cin >> n;
 	cout << endl;
-	cout << n << " : " << list[n] << endl << endl;
+	if (n >= list.Size() || n < 0)
+	{
+		cout << n << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl << endl;
+	}
+	else
+	{
+		cout << n << " : " << list[n] << endl << endl;
+	}
 	cout << "1.—v‘f‚Ì•\Ž¦‚É–ß‚é " << endl;
 	cout << "2.—v‘f‚Ì‘€ì‚É–ß‚é " << endl << endl;
 	cout << "‘€ì‚ð‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢" << endl;
@@ -115,10 +126,15 @@ void InsertList(List<string>& list)
 		return;
 	}
 	int i = std::stoi(instr);
-	if (i >= list.Size())
+	if (i >= list.Size() && i >= 0)
 	{
 		list.PushBack(str);
 		i = list.Size() - 1;
+	}
+	else if (i < 0)
+	{
+		list.PushFront(str);
+		i = 0;
 	}
 	else
 	{
@@ -134,7 +150,7 @@ void DeleteList(List<string>& list)
 	cout << "íœ‚µ‚½‚¢—v‘f‚Ì”Ô†‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
 	cin >> i;
 	cout << endl;
-	if (i > list.Size())
+	if (i > list.Size() || i < 0)
 	{
 		cout << i << "”Ô–Ú‚Ì—v‘f‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½" << endl;
 	}
@@ -150,7 +166,7 @@ void EditList(List<string>& list)
 	int i;
 	cout << "•ÒW‚µ‚½‚¢—v‘f‚Ì”Ô†‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
 	cin >> i;
-	if (i < list.Size())
+	if (i < list.Size() && i >= 0)
 	{
 		string str;
 		cout << i << "”Ô–Ú‚Ì—v‘f‚Ì•ÏX‚·‚é’l‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ " << endl;
