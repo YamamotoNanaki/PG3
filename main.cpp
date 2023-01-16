@@ -1,83 +1,91 @@
-#include <list>
-#include <vector>
-#include <iostream>
+#include "DxLib.h"
+#include "SceneManager.h"
 
-void Print(std::list<std::vector<char>> list)
-{
-	for (auto itr = list.begin(); itr != list.end(); itr++)
-	{
-		for (auto itr2 = itr->begin(); itr2 != itr->end(); itr2++)
-		{
-			std::cout << *itr2;
+// ウィンドウのタイトルに表示する文字列
+const char TITLE[] = "LE2A_22_ヤマモト_ナナキ: シングルトン";
+
+// ウィンドウ横幅
+const int WIN_WIDTH = 1920;
+
+// ウィンドウ縦幅
+const int WIN_HEIGHT = 1080;
+
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
+                   _In_ int nCmdShow) {
+	// ウィンドウモードに設定
+	ChangeWindowMode(TRUE);
+
+	// ウィンドウサイズを手動では変更させず、
+	// かつウィンドウサイズに合わせて拡大できないようにする
+	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
+
+	// タイトルを変更
+	SetMainWindowText(TITLE);
+
+	// 画面サイズの最大サイズ、カラービット数を設定(モニターの解像度に合わせる)
+	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
+
+	// 画面サイズを設定(解像度との比率で設定)
+	SetWindowSizeExtendRate(1.0);
+
+	// 画面の背景色を設定する
+	SetBackgroundColor(0x00, 0x00, 0x00);
+
+	// DXlibの初期化
+	if (DxLib_Init() == -1) { return -1; }
+
+	// (ダブルバッファ)描画先グラフィック領域は裏面を指定
+	SetDrawScreen(DX_SCREEN_BACK);
+
+	// 画像などのリソースデータの変数宣言と読み込み
+
+
+	// ゲームループで使う変数の宣言
+	SceneManager* sceneM = SceneManager::Instance();
+	sceneM->ChangeScene(sceneM->TITLE);
+
+	// 最新のキーボード情報用
+	char keys[256] = {0};
+
+	// 1ループ(フレーム)前のキーボード情報
+	char oldkeys[256] = {0};
+
+	// ゲームループ
+	while (true) {
+		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
+		// 最新のキーボード情報を取得
+		GetHitKeyStateAll(keys);
+
+		// 画面クリア
+		ClearDrawScreen();
+		//---------  ここからプログラムを記述  ----------//
+
+		// 更新処理
+		sceneM->Update();
+
+		// 描画処理
+		sceneM->Draw();
+
+		//---------  ここまでにプログラムを記述  ---------//
+		// (ダブルバッファ)裏面
+		ScreenFlip();
+
+		// 20ミリ秒待機(疑似60FPS)
+		WaitTimer(20);
+
+		// Windowsシステムからくる情報を処理する
+		if (ProcessMessage() == -1) {
+			break;
 		}
-		std::cout << std::endl;
+
+		// ESCキーが押されたらループから抜ける
+		if (CheckHitKey(KEY_INPUT_ESCAPE) == 1) {
+			break;
+		}
 	}
-	std::cout << std::endl;
-}
+	// Dxライブラリ終了処理
+	DxLib_End();
 
-std::vector<char> VectorPushBackChar(const char* str) {
-	std::vector<char> anser;
-	for (int i = 0; str[i] != '\0'; i++) {
-		anser.push_back(str[i]);
-	};
-
-	return anser;
-}
-
-using namespace std;
-
-void main()
-{
-	list<vector<char>>stations;
-	stations.push_back(VectorPushBackChar("Tokyo"));
-	stations.push_back(VectorPushBackChar("Kanda"));
-	stations.push_back(VectorPushBackChar("Akihabara"));
-	stations.push_back(VectorPushBackChar("Okachimachi"));
-	stations.push_back(VectorPushBackChar("Ueno"));
-	stations.push_back(VectorPushBackChar("Uguisudani"));
-	stations.push_back(VectorPushBackChar("Nippori"));
-	stations.push_back(VectorPushBackChar("Tabata"));
-	stations.push_back(VectorPushBackChar("Komagome"));
-	stations.push_back(VectorPushBackChar("Sugamo"));
-	stations.push_back(VectorPushBackChar("Otsuka"));
-	stations.push_back(VectorPushBackChar("Ikebukuro"));
-	stations.push_back(VectorPushBackChar("Mejiro"));
-	stations.push_back(VectorPushBackChar("Takadanobaba"));
-	stations.push_back(VectorPushBackChar("Shin-Okubo"));
-	stations.push_back(VectorPushBackChar("Shinjuku"));
-	stations.push_back(VectorPushBackChar("Yoyogi"));
-	stations.push_back(VectorPushBackChar("Harajuku"));
-	stations.push_back(VectorPushBackChar("Shibuya"));
-	stations.push_back(VectorPushBackChar("Ebisu"));
-	stations.push_back(VectorPushBackChar("Meguro"));
-	stations.push_back(VectorPushBackChar("Gotanda"));
-	stations.push_back(VectorPushBackChar("Osaki"));
-	stations.push_back(VectorPushBackChar("Shinagawa"));
-	stations.push_back(VectorPushBackChar("Tamachi"));
-	stations.push_back(VectorPushBackChar("Hamamatsucho"));
-	stations.push_back(VectorPushBackChar("Shimbashi"));
-	stations.push_back(VectorPushBackChar("Yurakucho"));
-
-	cout << "1970" << endl;
-	cout << endl;
-
-	Print(stations);
-
-	auto itr = stations.begin();
-	while (VectorPushBackChar("Tabata") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Nishi-Nippori"));
-
-	cout << "1971" << endl;
-	cout << endl;
-
-	Print(stations);
-
-	itr = stations.begin();
-	while (VectorPushBackChar("Tamachi") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Takanawa Gateway"));
-
-	cout << "2020" << endl;
-	cout << endl;
-
-	Print(stations);
+	// 正常終了
+	return 0;
 }
