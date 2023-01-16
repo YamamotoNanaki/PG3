@@ -13,7 +13,7 @@ public:
 public:
 	enum sceneNo
 	{
-		TITLE, NEWGAME,GAMEPLAY,GAMECLEAR
+		TITLE, NEWGAME, GAMEPLAY, GAMECLEAR
 	};
 
 public:
@@ -23,5 +23,5 @@ public:
 	void Draw();
 
 private:
-	Scene* scene;
+	Scene* scene = nullptr;
 };

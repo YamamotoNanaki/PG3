@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "SceneManager.h"
+#include "Input.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "LE2A_22_ヤマモト_ナナキ: シングルトン";
@@ -61,6 +62,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
+		Input::Instance()->Update();
 		sceneM->Update();
 
 		// 描画処理

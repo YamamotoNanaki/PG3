@@ -1,12 +1,11 @@
 #include "GameClear.h"
 #include "DxLib.h"
 #include "SceneManager.h"
+#include "Input.h"
 
 void GameClear::Update()
 {
-	key = CheckHitKey(KEY_INPUT_SPACE);
-	if (!oldkey && key)SceneManager::Instance()->ChangeScene(SceneManager::Instance()->TITLE);
-	oldkey = key;
+	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->TITLE);
 }
 
 void GameClear::Draw()

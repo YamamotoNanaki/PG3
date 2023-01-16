@@ -1,12 +1,11 @@
 #include "NewGame.h"
 #include "DxLib.h"
 #include "SceneManager.h"
+#include "Input.h"
 
 void NewGame::Update()
 {
-	key = CheckHitKey(KEY_INPUT_SPACE);
-	if (!oldkey && key)SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMEPLAY);
-	oldkey = key;
+	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMEPLAY);
 }
 
 void NewGame::Draw()

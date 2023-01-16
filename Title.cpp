@@ -1,12 +1,11 @@
 #include "Title.h"
 #include "DxLib.h"
 #include "SceneManager.h"
+#include "Input.h"
 
 void Title::Update()
 {
-	key = CheckHitKey(KEY_INPUT_SPACE);
-	if (!oldkey&&key)SceneManager::Instance()->ChangeScene(SceneManager::Instance()->NEWGAME);
-	oldkey = key;
+	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->NEWGAME);
 }
 
 void Title::Draw()

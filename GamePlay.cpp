@@ -1,12 +1,11 @@
 #include "GamePlay.h"
 #include "DxLib.h"
 #include "SceneManager.h"
+#include "Input.h"
 
 void GamePlay::Update()
 {
-	key = CheckHitKey(KEY_INPUT_SPACE);
-	if (!oldkey && key)SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMECLEAR);
-	oldkey = key;
+	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMECLEAR);
 }
 
 void GamePlay::Draw()
