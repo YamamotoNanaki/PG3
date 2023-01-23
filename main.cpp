@@ -3,7 +3,7 @@
 #include "Input.h"
 
 // ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "LE2A_22_ヤマモト_ナナキ: シングルトン";
+const char TITLE[] = "LE2A_22_ヤマモト_ナナキ: 静的メンバ変数";
 
 // ウィンドウ横幅
 const int WIN_WIDTH = 1920;
