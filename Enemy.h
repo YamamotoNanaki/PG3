@@ -1,18 +1,27 @@
 #pragma once
+#include <string>
 
 class Enemy
 {
 private:
-	unsigned int hp = 3;
-	static bool deathFlag;
-	static unsigned int enemyNum;
-	unsigned int number = 0;
+	size_t phase;
+	std::string status;
+
+	enum PhaseInfo
+	{
+		approach, shooting, exit
+	};
 
 public:
 	Enemy();
 	~Enemy();
-	void Damage();
+	void Update();
 	void Draw(int x, int y);
-	static bool GetDeathFlag();
+	void Approach();
+	void Shooting();
+	void Exit();
+
+private:
+	static void (Enemy::* func[])();
 };
 
