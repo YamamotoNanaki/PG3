@@ -5,7 +5,7 @@
 
 void NewGame::Update()
 {
-	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMEPLAY);
+	if (Input::Instance()->Trigger(KEY_INPUT_SPACE))SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMEPLAY);
 }
 
 void NewGame::Draw()

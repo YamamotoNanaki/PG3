@@ -5,7 +5,7 @@
 
 void GamePlay::Update()
 {
-	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMECLEAR);
+	if (Input::Instance()->Trigger(KEY_INPUT_SPACE))SceneManager::Instance()->ChangeScene(SceneManager::Instance()->GAMECLEAR);
 }
 
 void GamePlay::Draw()

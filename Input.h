@@ -18,6 +18,6 @@ private:
 public:
 	static Input* Instance();
 	void Update();
-	bool Trigger();
+	bool Trigger(char key);
 };
 

@@ -5,7 +5,7 @@
 
 void GameClear::Update()
 {
-	if (Input::Instance()->Trigger())SceneManager::Instance()->ChangeScene(SceneManager::Instance()->TITLE);
+	if (Input::Instance()->Trigger(KEY_INPUT_SPACE))SceneManager::Instance()->ChangeScene(SceneManager::Instance()->TITLE);
 }
 
 void GameClear::Draw()

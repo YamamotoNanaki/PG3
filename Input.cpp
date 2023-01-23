@@ -13,7 +13,7 @@ void Input::Update()
 	GetHitKeyStateAll(keys);
 }
 
-bool Input::Trigger()
+bool Input::Trigger(char key)
 {
-	return keys[KEY_INPUT_SPACE] && !oldkeys[KEY_INPUT_SPACE];
+	return keys[key] && !oldkeys[key];
 }
