@@ -1,83 +1,36 @@
-#include <list>
-#include <vector>
-#include <iostream>
-
-void Print(std::list<std::vector<char>> list)
-{
-	for (auto itr = list.begin(); itr != list.end(); itr++)
-	{
-		for (auto itr2 = itr->begin(); itr2 != itr->end(); itr2++)
-		{
-			std::cout << *itr2;
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
-}
-
-std::vector<char> VectorPushBackChar(const char* str) {
-	std::vector<char> anser;
-	for (int i = 0; str[i] != '\0'; i++) {
-		anser.push_back(str[i]);
-	};
-
-	return anser;
-}
-
-using namespace std;
+#include "Circle.h"
+#include "Rectangle.h"
+#include <cstdlib>
 
 void main()
 {
-	list<vector<char>>stations;
-	stations.push_back(VectorPushBackChar("Tokyo"));
-	stations.push_back(VectorPushBackChar("Kanda"));
-	stations.push_back(VectorPushBackChar("Akihabara"));
-	stations.push_back(VectorPushBackChar("Okachimachi"));
-	stations.push_back(VectorPushBackChar("Ueno"));
-	stations.push_back(VectorPushBackChar("Uguisudani"));
-	stations.push_back(VectorPushBackChar("Nippori"));
-	stations.push_back(VectorPushBackChar("Tabata"));
-	stations.push_back(VectorPushBackChar("Komagome"));
-	stations.push_back(VectorPushBackChar("Sugamo"));
-	stations.push_back(VectorPushBackChar("Otsuka"));
-	stations.push_back(VectorPushBackChar("Ikebukuro"));
-	stations.push_back(VectorPushBackChar("Mejiro"));
-	stations.push_back(VectorPushBackChar("Takadanobaba"));
-	stations.push_back(VectorPushBackChar("Shin-Okubo"));
-	stations.push_back(VectorPushBackChar("Shinjuku"));
-	stations.push_back(VectorPushBackChar("Yoyogi"));
-	stations.push_back(VectorPushBackChar("Harajuku"));
-	stations.push_back(VectorPushBackChar("Shibuya"));
-	stations.push_back(VectorPushBackChar("Ebisu"));
-	stations.push_back(VectorPushBackChar("Meguro"));
-	stations.push_back(VectorPushBackChar("Gotanda"));
-	stations.push_back(VectorPushBackChar("Osaki"));
-	stations.push_back(VectorPushBackChar("Shinagawa"));
-	stations.push_back(VectorPushBackChar("Tamachi"));
-	stations.push_back(VectorPushBackChar("Hamamatsucho"));
-	stations.push_back(VectorPushBackChar("Shimbashi"));
-	stations.push_back(VectorPushBackChar("Yurakucho"));
+	IShape* shape1;
+	IShape* shape2;
 
-	cout << "1970" << endl;
-	cout << endl;
+	shape1 = new Circle;
+	shape2 = new Rectangle;
 
-	Print(stations);
+	Circle* c = dynamic_cast<Circle*>(shape1);
+	Rectangle* r = dynamic_cast<Rectangle*>(shape2);
 
-	auto itr = stations.begin();
-	while (VectorPushBackChar("Tabata") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Nishi-Nippori"));
+	if (c)
+	{
+		c->SetRadius(3);
+	}
+	if (r)
+	{
+		r->SetBase(4);
+		r->SetHeight(5);
+	}
 
-	cout << "1971" << endl;
-	cout << endl;
+	shape1->size();
+	shape2->size();
 
-	Print(stations);
+	shape1->draw();
+	shape2->draw();
 
-	itr = stations.begin();
-	while (VectorPushBackChar("Tamachi") != *itr)itr++;
-	itr = stations.insert(itr, VectorPushBackChar("Takanawa Gateway"));
+	delete shape1;
+	delete shape2;
 
-	cout << "2020" << endl;
-	cout << endl;
-
-	Print(stations);
+	system("PAUSE");
 }
