@@ -39,3 +39,11 @@ void Person::DrawID()
 	cout << personID << " : ";
 	Draw();
 }
+
+void Person::OutPut(ofstream& writing_file)
+{
+	writing_file << "id" << endl << personID << endl;
+	writing_file << "class" << endl << className << endl;
+	writing_file << "attendance" << endl << attendanceNum << endl;
+	writing_file << "name" << endl << name << endl << endl;
+}

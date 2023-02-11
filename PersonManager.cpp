@@ -1,5 +1,6 @@
 #include "PersonManager.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -34,20 +35,20 @@ void PersonManager::AddPerson()
 	cout << endl;
 	cout << "–¼‘O‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> name;
-	unsigned int next = 0;
-	for (int i = 0; i < nextID.size(); i++)
+	unsigned int next = 1;
+	for (next; next < people.size(); next++)
 	{
-		if (nextID[i])
+		for (auto it = people.begin(); it != people.end();)
 		{
-			next = i + 1;
-			nextID[i] = false;
-			break;
+			if (it->get()->GetID() == next)
+			{
+				break;
+			}
+			else
+			{
+				++it;
+			}
 		}
-	}
-	if (next == 0)
-	{
-		nextID.push_back(false);
-		next = nextID.size();
 	}
 	people.push_back(make_unique<Person>(next, name, attendanceNum, className));
 	cout << endl;
@@ -342,22 +343,16 @@ void PersonManager::DeletePerson()
 	cout << endl;
 	bool flag = false;
 	int i = 0;
-	for (auto it = people.begin(); it != people.end();) {
-		if (it->get()->GetID() == num) {
+	for (auto it = people.begin(); it != people.end();)
+	{
+		if (it->get()->GetID() == num)
+		{
 			it = people.erase(it);
-			nextID[i] = true;
-			for (int i = nextID.size() - 1; i >= 0; i--)
-			{
-				if (nextID[i])nextID.pop_back();
-				else
-				{
-					break;
-				}
-			}
 			cout << "íœ‚ªŠ®—¹‚µ‚Ü‚µ‚½" << endl << endl;
 			return;
 		}
-		else {
+		else
+		{
 			++it;
 			i++;
 		}
@@ -373,4 +368,53 @@ void PersonManager::DeletePerson()
 size_t PersonManager::GetPeopleSize()
 {
 	return people.size();
+}
+
+void PersonManager::InPut()
+{
+	ifstream reading_file;
+	string faile = "Person.json";
+	reading_file.open(faile, ios::out);
+	string str;
+	string className;
+	string name;
+	unsigned int id;
+	unsigned int attendanceNum;
+	while (getline(reading_file, str))
+	{
+		if (str == "id")
+		{
+			getline(reading_file, str);
+			id = std::stoi(str);
+		}
+		else if (str == "class")
+		{
+			getline(reading_file, str);
+			className = str;
+		}
+		else if (str == "attendance")
+		{
+			getline(reading_file, str);
+			attendanceNum = std::stoi(str);
+		}
+		else if (str == "name")
+		{
+			getline(reading_file, str);
+			name = str;
+			people.push_back(make_unique<Person>(id, name, attendanceNum, className));
+		}
+	}
+	reading_file.close();
+}
+
+void PersonManager::OutPut()
+{
+	ofstream writing_file;
+	string faile = "Person.json";
+	writing_file.open(faile, ios::out);
+	for (unique_ptr<Person>& itr : people)
+	{
+		itr.get()->OutPut(writing_file);
+	}
+	writing_file.close();
 }

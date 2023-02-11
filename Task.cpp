@@ -7,6 +7,9 @@ using namespace std;
 Task::Task(unsigned int taskId, unsigned int entryP, unsigned int PIC, std::string taskName, std::string content, std::string priority, Date deadLine)
 	:taskId(taskId), entryP(entryP), PIC(PIC), taskName(taskName), content(content), priority(priority), deadLine(deadLine) {}
 
+Task::Task(unsigned int taskId, unsigned int entryP, unsigned int PIC, std::string taskName, std::string content, std::string priority, Date deadLine, bool status) : taskId(taskId), entryP(entryP), PIC(PIC), taskName(taskName), content(content), priority(priority), deadLine(deadLine), status(status)
+{}
+
 void Task::SetStatus(bool status)
 {
 	string nows = this->status ? "Š®—¹" : "–¢Š®—¹";
@@ -90,4 +93,18 @@ void Task::DrawID()
 unsigned int Task::GetID()
 {
 	return taskId;
+}
+
+void Task::OutPut(std::ofstream& writing_file)
+{
+	writing_file << "id" << endl << taskId << endl;
+	writing_file << "entryP" << endl << entryP << endl;
+	writing_file << "PIC" << endl << PIC << endl;
+	writing_file << "taskName" << endl << taskName << endl << endl;
+	writing_file << "content" << endl << content << endl << endl;
+	writing_file << "priority" << endl << priority << endl << endl;
+	writing_file << "status" << endl << (int)status << endl << endl;
+	writing_file << "deadLineYear" << endl << deadLine.year << endl << endl;
+	writing_file << "deadLineMonth" << endl << deadLine.month << endl << endl;
+	writing_file << "deadLineDay" << endl << deadLine.day << endl << endl;
 }

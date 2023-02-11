@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Date.h"
+#include <fstream>
 
 class Task
 {
@@ -15,6 +16,7 @@ private:
 	bool status = false;
 public:
 	Task(unsigned int taskId, unsigned int entryP, unsigned int PIC, std::string taskName, std::string content, std::string priority, Date deadLine);
+	Task(unsigned int taskId, unsigned int entryP, unsigned int PIC, std::string taskName, std::string content, std::string priority, Date deadLine,bool status);
 	void SetStatus(bool status);
 	void SetPIC(unsigned int PIC);
 	void SetTaskName(std::string taskName);
@@ -24,5 +26,6 @@ public:
 	void Draw();
 	void DrawID();
 	unsigned int GetID();
+	void OutPut(std::ofstream& writing_file);
 };
 

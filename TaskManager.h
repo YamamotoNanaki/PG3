@@ -8,7 +8,6 @@ class TaskManager
 {
 private:
     std::list<std::unique_ptr<Task>> tasks;
-    std::vector<bool>nextID;
     TaskManager() {};
     ~TaskManager();
 public:
@@ -24,5 +23,7 @@ public:
     void SetDeadLine();
     void Draw();
     void DeleteTask();
+    void OutPut();
+    void InPut();
 };
 

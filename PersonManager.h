@@ -8,7 +8,6 @@ class PersonManager
 {
 private:
 	std::list<std::unique_ptr<Person>> people;
-	std::vector<bool>nextID;
 	PersonManager() {};
 	~PersonManager();
 public:
@@ -26,5 +25,7 @@ public:
 	bool IDCheck(unsigned int PIC);
 	void DeletePerson();
 	size_t GetPeopleSize();
+	void InPut();
+	void OutPut();
 };
 

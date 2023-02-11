@@ -78,19 +78,19 @@ void TaskManager::AddTask()
 	cout << "タスクの期限を入力してください" << endl << endl;
 	deadLine.Set();
 	unsigned int next = 0;
-	for (int i = 0; i < nextID.size(); i++)
+	for (next; next < tasks.size(); next++)
 	{
-		if (nextID[i])
+		for (auto it = tasks.begin(); it != tasks.end();)
 		{
-			next = i + 1;
-			nextID[i] = false;
-			break;
+			if (it->get()->GetID() == next)
+			{
+				break;
+			}
+			else
+			{
+				++it;
+			}
 		}
-	}
-	if (next == 0)
-	{
-		nextID.push_back(false);
-		next = nextID.size();
 	}
 	tasks.push_back(make_unique<Task>(next, id, pic, taskName, content, priority, deadLine));
 	cout << endl << endl;
@@ -461,15 +461,6 @@ void TaskManager::DeleteTask()
 	for (auto it = tasks.begin(); it != tasks.end();) {
 		if (it->get()->GetID() == num) {
 			it = tasks.erase(it);
-			nextID[i] = true;
-			for (int i = nextID.size() - 1; i >= 0; i--)
-			{
-				if (nextID[i])nextID.pop_back();
-				else
-				{
-					break;
-				}
-			}
 			cout << "削除が完了しました" << endl << endl;
 			return;
 		}
@@ -484,4 +475,91 @@ void TaskManager::DeleteTask()
 		cout << "操作をキャンセルします" << endl << endl;
 		return;
 	}
+}
+
+void TaskManager::OutPut()
+{
+	ofstream writing_file;
+	string faile = "Task.json";
+	writing_file.open(faile, ios::out);
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->OutPut(writing_file);
+	}
+	writing_file.close();
+}
+
+void TaskManager::InPut()
+{
+	ifstream reading_file;
+	string faile = "Task.json";
+	reading_file.open(faile, ios::out);
+	string str;
+	string taskName;
+	string content;
+	string priority;
+	bool status;
+	unsigned int taskId;
+	unsigned int entryP;
+	unsigned int PIC;
+	unsigned short deadLineYear = 0;
+	unsigned short deadLineMonth = 0;
+	while (getline(reading_file, str))
+	{
+		if (str == "id")
+		{
+			getline(reading_file, str);
+			taskId = std::stoi(str);
+		}
+		else if (str == "taskName")
+		{
+			getline(reading_file, str);
+			taskName = str;
+		}
+		else if (str == "content")
+		{
+			getline(reading_file, str);
+			content = str;
+		}
+		else if (str == "priority")
+		{
+			getline(reading_file, str);
+			priority = str;
+		}
+		else if (str == "entryP")
+		{
+			getline(reading_file, str);
+			entryP = std::stoi(str);
+		}
+		else if (str == "PIC")
+		{
+			getline(reading_file, str);
+			PIC = std::stoi(str);
+		}
+		else if (str == "status")
+		{
+			getline(reading_file, str);
+			status = std::stoi(str);
+		}
+		else if (str == "deadLineYear")
+		{
+			getline(reading_file, str);
+			deadLineYear = std::stoi(str);
+		}
+		else if (str == "deadLineMonth")
+		{
+			getline(reading_file, str);
+			deadLineMonth = std::stoi(str);
+		}
+		else if (str == "deadLineDay")
+		{
+			getline(reading_file, str);
+			Date date;
+			date.day = std::stoi(str);
+			date.month = deadLineMonth;
+			date.year = deadLineYear;
+			tasks.push_back(make_unique<Task>(taskId, entryP, PIC, taskName, content, priority, date, status));
+		}
+	}
+	reading_file.close();
 }

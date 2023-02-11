@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <fstream>
 
 class Person
 {
@@ -16,5 +17,6 @@ public:
 	unsigned int GetID();
 	void Draw();
 	void DrawID();
+	void OutPut(std::ofstream& writing_file);
 };
 

@@ -10,7 +10,8 @@ void main()
 	Date::SetToday();
 	PersonManager* pm = PersonManager::GetInstance();
 	TaskManager* tm = TaskManager::GetInstance();
-
+	pm->InPut();
+	tm->InPut();
 	int decision = 1;
 	while (decision != 0)
 	{
@@ -114,6 +115,7 @@ void main()
 			{
 				pm->Draw();
 			}
+			pm->OutPut();
 			system("PAUSE");
 		}
 		else if (decision == 2)
@@ -195,6 +197,7 @@ void main()
 			{
 				tm->Draw();
 			}
+			tm->OutPut();
 			system("PAUSE");
 		}
 	}
