@@ -130,6 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,15 +140,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="IShape.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="PersonManager.cpp" />
+    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="IShape.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="PersonManager.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="TaskManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

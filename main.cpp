@@ -1,36 +1,21 @@
-#include "Circle.h"
-#include "Rectangle.h"
 #include <cstdlib>
+#include <iostream>
+#include "PersonManager.h"
+#include "TaskManager.h"
 
 void main()
 {
-	IShape* shape1;
-	IShape* shape2;
+	Date::SetToday();
+	PersonManager* pm = PersonManager::GetInstance();
+	TaskManager* tm = TaskManager::GetInstance();
 
-	shape1 = new Circle;
-	shape2 = new Rectangle;
+	pm->AddPerson();
+	pm->AddPerson();
 
-	Circle* c = dynamic_cast<Circle*>(shape1);
-	Rectangle* r = dynamic_cast<Rectangle*>(shape2);
-
-	if (c)
-	{
-		c->SetRadius(3);
-	}
-	if (r)
-	{
-		r->SetBase(4);
-		r->SetHeight(5);
-	}
-
-	shape1->size();
-	shape2->size();
-
-	shape1->draw();
-	shape2->draw();
-
-	delete shape1;
-	delete shape2;
-
+	tm->AddTask();
+	tm->AddTask();
+	tm->Draw();
+	tm->DeleteTask();
+	tm->Draw();
 	system("PAUSE");
 }

@@ -1,0 +1,486 @@
+#include "TaskManager.h"
+#include "PersonManager.h"
+#include <iostream>
+
+using namespace std;
+
+TaskManager::~TaskManager()
+{
+	tasks.clear();
+}
+
+TaskManager* TaskManager::GetInstance()
+{
+	static TaskManager inst;
+	return &inst;
+}
+
+void TaskManager::AddTask()
+{
+	unsigned int id;
+	unsigned int pic;
+	string taskName;
+	string content;
+	string priority;
+	Date deadLine;
+	PersonManager* pm = PersonManager::GetInstance();
+
+	cout << "タスクを追加します" << endl;
+	cout << "記入者のIDを入力してください" << endl;
+	cout << "キャンセルの場合は0を入力してください" << endl << endl;
+	pm->DrawID();
+
+	cin >> id;
+	cout << endl;
+	if (id == 0)
+	{
+		cout << "キャンセルしました" << endl << endl;
+		return;
+	}
+	while (!pm->IDCheck(id))
+	{
+		cout << "IDが存在しません" << endl;
+		cout << "再入力してください" << endl;
+		cout << "キャンセルの場合は0を入力してください" << endl << endl;
+		pm->DrawID();
+		cin >> id;
+		cout << endl;
+		if (id == 0)
+		{
+			cout << "キャンセルしました" << endl << endl;
+			return;
+		}
+	}
+
+	cout << "担当者のIDを入力してください" << endl;
+	cin >> pic;
+	cout << endl;
+	if (pic == 0)
+	{
+		cout << "キャンセルしました" << endl << endl;
+		return;
+	}
+	while (!pm->IDCheck(pic))
+	{
+		cout << "IDが存在しません" << endl;
+		cout << "再入力してください" << endl << endl;
+		pm->DrawID();
+		cin >> pic;
+		cout << endl;
+	}
+
+	cout << "タスクの名前を入力してください" << endl << endl;
+	cin >> taskName;
+	cout << "タスクの内容を入力してください" << endl << endl;
+	cin >> content;
+	cout << "タスクの重要度を入力してください" << endl << endl;
+	cin >> priority;
+	cout << "タスクの期限を入力してください" << endl << endl;
+	deadLine.Set();
+	unsigned int next = 0;
+	for (int i = 0; i < nextID.size(); i++)
+	{
+		if (nextID[i])
+		{
+			next = i + 1;
+			break;
+		}
+	}
+	if (next == 0)
+	{
+		next = nextID.size() + 1;
+	}
+	tasks.push_back(make_unique<Task>(next, id, pic, taskName, content, priority, deadLine));
+	nextID.push_back(false);
+	cout << endl << endl;
+}
+
+void TaskManager::SetTaskName()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "タスク名を変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	string name;
+	cout << "名前を入力してください" << endl << endl;
+	cin >> name;
+	cout << endl;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetTaskName(name);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::SetPIC()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "担当者を変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	unsigned int id;
+	cout << "担当者のidを入力してください" << endl << endl;
+
+	PersonManager::GetInstance()->DrawID();
+	cout << endl;
+	cin >> id;
+	cout << endl;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetPIC(id);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::SetStatus()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "ステータスを変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	int status;
+	cout << "ステータスを入力してください" << endl;
+	cout << "0 : 未完了" << endl;
+	cout << "1 : 完了" << endl << endl;
+	cin >> status;
+	cout << endl;
+	while (!(status == 0 || status == 1))
+	{
+		cout << "存在しないステータスです" << endl;
+		cout << "再入力してください" << endl;
+		cout << "0 : 未完了" << endl;
+		cout << "1 : 完了" << endl << endl;
+		cin >> status;
+		cout << endl;
+	}
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetStatus(status);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::SetPriority()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "重要度を変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	string priority;
+	cout << "重要度を入力してください" << endl << endl;
+	cin >> priority;
+	cout << endl;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetPriority(priority);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::SetContent()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "内容を変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	string content;
+	cout << "内容を入力してください" << endl << endl;
+	cin >> content;
+	cout << endl;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetContent(content);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::SetDeadLine()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "期限を変更します" << endl;
+	cout << "変更するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			flag = true;
+			break;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	Date date;
+	cout << "期限を入力してください" << endl << endl;
+	date.Set();
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		if (itr.get()->GetID() == num)
+		{
+			itr.get()->SetDeadLine(date);
+
+			cout << endl;
+			return;
+		}
+	}
+	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+}
+
+void TaskManager::Draw()
+{
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->Draw();
+	}
+}
+
+void TaskManager::DeleteTask()
+{
+	unsigned int num;
+	for (unique_ptr<Task>& itr : tasks)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "タスクを削除します" << endl;
+	cout << "削除するタスクのIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	int i = 0;
+	for (auto it = tasks.begin(); it != tasks.end();) {
+		if (it->get()->GetID() == num) {
+			it = tasks.erase(it);
+			nextID[i] = true;
+			for (int i = nextID.size() - 1; i >= 0; i--)
+			{
+				if (nextID[i])nextID.pop_back();
+				else
+				{
+					break;
+				}
+			}
+			cout << "削除が完了しました" << endl << endl;
+			return;
+		}
+		else {
+			++it;
+			i++;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+}
