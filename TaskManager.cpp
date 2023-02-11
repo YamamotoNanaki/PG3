@@ -83,70 +83,71 @@ void TaskManager::AddTask()
 		if (nextID[i])
 		{
 			next = i + 1;
+			nextID[i] = false;
 			break;
 		}
 	}
 	if (next == 0)
 	{
-		next = nextID.size() + 1;
+		nextID.push_back(false);
+		next = nextID.size();
 	}
 	tasks.push_back(make_unique<Task>(next, id, pic, taskName, content, priority, deadLine));
-	nextID.push_back(false);
 	cout << endl << endl;
 }
 
-void TaskManager::SetTaskName()
-{
-	unsigned int num;
-	for (unique_ptr<Task>& itr : tasks)
-	{
-		itr.get()->DrawID();
-	}
-
-	cout << endl;
-	cout << "タスク名を変更します" << endl;
-	cout << "変更するタスクのIDを入力してください" << endl;
-	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
-	cin >> num;
-	cout << endl;
-
-	if (num == 0)
-	{
-		cout << "操作をキャンセルします" << endl << endl;
-		return;
-	}
-	cout << endl;
-	bool flag = false;
-	for (unique_ptr<Task>& itr : tasks)
-	{
-		if (itr.get()->GetID() == num)
-		{
-			flag = true;
-			break;
-		}
-	}
-	if (!flag)
-	{
-		cout << "IDが見つかりませんでした" << endl;
-		cout << "操作をキャンセルします" << endl << endl;
-		return;
-	}
-	string name;
-	cout << "名前を入力してください" << endl << endl;
-	cin >> name;
-	cout << endl;
-	for (unique_ptr<Task>& itr : tasks)
-	{
-		if (itr.get()->GetID() == num)
-		{
-			itr.get()->SetTaskName(name);
-
-			cout << endl;
-			return;
-		}
-	}
-	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
-}
+//void TaskManager::SetTaskName()
+//{
+//	unsigned int num;
+//	for (unique_ptr<Task>& itr : tasks)
+//	{
+//		itr.get()->DrawID();
+//	}
+//
+//	cout << endl;
+//	cout << "タスク名を変更します" << endl;
+//	cout << "変更するタスクのIDを入力してください" << endl;
+//	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+//	cin >> num;
+//	cout << endl;
+//
+//	if (num == 0)
+//	{
+//		cout << "操作をキャンセルします" << endl << endl;
+//		return;
+//	}
+//	cout << endl;
+//	bool flag = false;
+//	for (unique_ptr<Task>& itr : tasks)
+//	{
+//		if (itr.get()->GetID() == num)
+//		{
+//			flag = true;
+//			break;
+//		}
+//	}
+//	if (!flag)
+//	{
+//		cout << "IDが見つかりませんでした" << endl;
+//		cout << "操作をキャンセルします" << endl << endl;
+//		return;
+//	}
+//	string name;
+//	cout << "名前を入力してください" << endl << endl;
+//	cin >> name;
+//	cout << endl;
+//	for (unique_ptr<Task>& itr : tasks)
+//	{
+//		if (itr.get()->GetID() == num)
+//		{
+//			itr.get()->SetTaskName(name);
+//
+//			cout << endl;
+//			return;
+//		}
+//	}
+//	cout << "何らかのエラーにより変更できませんでした" << endl << endl;
+//}
 
 void TaskManager::SetPIC()
 {

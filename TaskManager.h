@@ -16,7 +16,7 @@ public:
     TaskManager operator=(const TaskManager& obj) = delete;
     static TaskManager* GetInstance();
     void AddTask();
-    void SetTaskName();
+    //void SetTaskName();
     void SetPIC();
     void SetStatus();
     void SetPriority();

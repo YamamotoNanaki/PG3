@@ -39,16 +39,17 @@ void PersonManager::AddPerson()
 	{
 		if (nextID[i])
 		{
-			next = i;
+			next = i + 1;
+			nextID[i] = false;
 			break;
 		}
 	}
 	if (next == 0)
 	{
-		next = nextID.size() + 1;
+		nextID.push_back(false);
+		next = nextID.size();
 	}
 	people.push_back(make_unique<Person>(next, name, attendanceNum, className));
-	nextID.push_back(false);
 	cout << endl;
 	people.back().get()->Draw();
 	cout << endl << endl;
@@ -316,4 +317,60 @@ bool PersonManager::IDCheck(unsigned int PIC)
 		}
 	}
 	return false;
+}
+
+void PersonManager::DeletePerson()
+{
+	unsigned int num;
+	for (unique_ptr<Person>& itr : people)
+	{
+		itr.get()->DrawID();
+	}
+
+	cout << endl;
+	cout << "登録されている人物を削除します" << endl;
+	cout << "削除する人物のIDを入力してください" << endl;
+	cout << "操作をキャンセルする場合0を入力してください" << endl << endl;
+	cin >> num;
+	cout << endl;
+
+	if (num == 0)
+	{
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+	cout << endl;
+	bool flag = false;
+	int i = 0;
+	for (auto it = people.begin(); it != people.end();) {
+		if (it->get()->GetID() == num) {
+			it = people.erase(it);
+			nextID[i] = true;
+			for (int i = nextID.size() - 1; i >= 0; i--)
+			{
+				if (nextID[i])nextID.pop_back();
+				else
+				{
+					break;
+				}
+			}
+			cout << "削除が完了しました" << endl << endl;
+			return;
+		}
+		else {
+			++it;
+			i++;
+		}
+	}
+	if (!flag)
+	{
+		cout << "IDが見つかりませんでした" << endl;
+		cout << "操作をキャンセルします" << endl << endl;
+		return;
+	}
+}
+
+size_t PersonManager::GetPeopleSize()
+{
+	return people.size();
 }

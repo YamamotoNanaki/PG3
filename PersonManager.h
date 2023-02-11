@@ -24,5 +24,7 @@ public:
 	void Draw(unsigned int PICID);
 	void DrawID();
 	bool IDCheck(unsigned int PIC);
+	void DeletePerson();
+	size_t GetPeopleSize();
 };
 
