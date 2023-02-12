@@ -100,11 +100,11 @@ void Task::OutPut(std::ofstream& writing_file)
 	writing_file << "id" << endl << taskId << endl;
 	writing_file << "entryP" << endl << entryP << endl;
 	writing_file << "PIC" << endl << PIC << endl;
-	writing_file << "taskName" << endl << taskName << endl << endl;
-	writing_file << "content" << endl << content << endl << endl;
-	writing_file << "priority" << endl << priority << endl << endl;
-	writing_file << "status" << endl << (int)status << endl << endl;
-	writing_file << "deadLineYear" << endl << deadLine.year << endl << endl;
-	writing_file << "deadLineMonth" << endl << deadLine.month << endl << endl;
+	writing_file << "taskName" << endl << taskName << endl;
+	writing_file << "content" << endl << content << endl;
+	writing_file << "priority" << endl << priority << endl;
+	writing_file << "status" << endl << (int)status << endl;
+	writing_file << "deadLineYear" << endl << deadLine.year << endl;
+	writing_file << "deadLineMonth" << endl << deadLine.month << endl;
 	writing_file << "deadLineDay" << endl << deadLine.day << endl << endl;
 }

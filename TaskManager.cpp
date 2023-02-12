@@ -77,8 +77,8 @@ void TaskManager::AddTask()
 	cin >> priority;
 	cout << "ƒ^ƒXƒN‚ÌŠúŒÀ‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" << endl << endl;
 	deadLine.Set();
-	unsigned int next = 0;
-	for (next; next < tasks.size(); next++)
+	unsigned int next = 1;
+	for (next; next < tasks.size() + 1; next++)
 	{
 		for (auto it = tasks.begin(); it != tasks.end();)
 		{

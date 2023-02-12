@@ -36,7 +36,7 @@ void PersonManager::AddPerson()
 	cout << "–¼‘O‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> name;
 	unsigned int next = 1;
-	for (next; next < people.size(); next++)
+	for (next; next < people.size() + 1; next++)
 	{
 		for (auto it = people.begin(); it != people.end();)
 		{
