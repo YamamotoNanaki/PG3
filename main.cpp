@@ -26,8 +26,8 @@ void main()
 		}
 		cout << "タスク管理システム" << endl << endl;
 		cout << "操作したい内容を選んでください" << endl;
-		cout << "1 : 担当者" << endl;
-		if (flag)cout << "2 : タスク" << endl;
+		cout << "1 : 担当者操作" << endl;
+		if (flag)cout << "2 : タスク操作" << endl;
 		cout << "0 : 終了" << endl;
 		cin >> decision;
 		cout << endl;
@@ -35,8 +35,8 @@ void main()
 		{
 			cout << "操作が存在しません" << endl;
 			cout << "再入力してください" << endl;
-			cout << "1 : 担当者" << endl;
-			cout << "2 : タスク" << endl;
+			cout << "1 : 担当者操作" << endl;
+			cout << "2 : タスク操作" << endl;
 			cout << "0 : 終了" << endl;
 			cin >> decision;
 			cout << endl;
@@ -116,6 +116,9 @@ void main()
 				pm->Draw();
 			}
 			pm->OutPut();
+			cout << endl;
+			cout << "操作後の担当者状況" << endl;
+			pm->Draw();
 			system("PAUSE");
 		}
 		else if (decision == 2)
@@ -198,6 +201,10 @@ void main()
 				tm->Draw();
 			}
 			tm->OutPut();
+
+			cout << endl;
+			cout << "操作後のタスク状況" << endl;
+			tm->Draw();
 			system("PAUSE");
 		}
 	}

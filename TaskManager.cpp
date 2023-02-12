@@ -78,18 +78,24 @@ void TaskManager::AddTask()
 	cout << "ƒ^ƒXƒN‚ÌŠúŒÀ‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" << endl << endl;
 	deadLine.Set();
 	unsigned int next = 1;
-	for (next; next < tasks.size() + 1; next++)
+	for (next = 1; next < tasks.size() + 1; next++)
 	{
+		bool flag = true;
 		for (auto it = tasks.begin(); it != tasks.end();)
 		{
 			if (it->get()->GetID() == next)
 			{
+				flag = false;
 				break;
 			}
 			else
 			{
 				++it;
 			}
+		}
+		if (flag)
+		{
+			break;
 		}
 	}
 	tasks.push_back(make_unique<Task>(next, id, pic, taskName, content, priority, deadLine));
@@ -480,7 +486,7 @@ void TaskManager::DeleteTask()
 void TaskManager::OutPut()
 {
 	ofstream writing_file;
-	string faile = "Task.json";
+	string faile = "Task.txt";
 	writing_file.open(faile, ios::out);
 	for (unique_ptr<Task>& itr : tasks)
 	{
@@ -492,7 +498,7 @@ void TaskManager::OutPut()
 void TaskManager::InPut()
 {
 	ifstream reading_file;
-	string faile = "Task.json";
+	string faile = "Task.txt";
 	reading_file.open(faile, ios::out);
 	string str;
 	string taskName;

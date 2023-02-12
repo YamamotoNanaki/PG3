@@ -36,18 +36,24 @@ void PersonManager::AddPerson()
 	cout << "–¼‘O‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢" << endl;
 	cin >> name;
 	unsigned int next = 1;
-	for (next; next < people.size() + 1; next++)
+	for (next = 1; next < people.size() + 1; next++)
 	{
+		bool flag = true;
 		for (auto it = people.begin(); it != people.end();)
 		{
 			if (it->get()->GetID() == next)
 			{
+				flag = false;
 				break;
 			}
 			else
 			{
 				++it;
 			}
+		}
+		if (flag)
+		{
+			break;
 		}
 	}
 	people.push_back(make_unique<Person>(next, name, attendanceNum, className));
@@ -373,7 +379,7 @@ size_t PersonManager::GetPeopleSize()
 void PersonManager::InPut()
 {
 	ifstream reading_file;
-	string faile = "Person.json";
+	string faile = "Person.txt";
 	reading_file.open(faile, ios::out);
 	string str;
 	string className;
@@ -410,7 +416,7 @@ void PersonManager::InPut()
 void PersonManager::OutPut()
 {
 	ofstream writing_file;
-	string faile = "Person.json";
+	string faile = "Person.txt";
 	writing_file.open(faile, ios::out);
 	for (unique_ptr<Person>& itr : people)
 	{
